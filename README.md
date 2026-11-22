@@ -13,7 +13,11 @@ here, not to any upstream project.
 pages and runs under its own name, icon and app signature, with its own branding
 (`palemoon/branding/ageku`). Not yet packaged or released. See [PLAN-HAIKU.md](PLAN-HAIKU.md).
 
-![Ageku on Haiku R1/beta6, first start](docs/screenshots/ageku-start-2026-11-22.png)
+## Screenshots
+
+![Ageku on Haiku R1/beta6 showing https://www.haiku-os.org](docs/screenshots/haiku-https.png)
+
+Ageku on Haiku R1/beta6 (x86_64), loading an HTTPS site.
 
 ## Licence
 
