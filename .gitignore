@@ -77,3 +77,6 @@ suite/
 iceweasel/
 calendar/
 projects/*/dist/
+
+# Release artifacts and evidence (beos-app-platforms release tools)
+/dist/
