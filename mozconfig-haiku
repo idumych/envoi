@@ -1,5 +1,5 @@
 # Ageku for Haiku/Renku x86_64: native toolkit (cairo-haiku), system libraries.
-# Transitional unofficial branding until Ageku has its own (see PLAN-HAIKU.md).
+# Branding: Ageku's own (palemoon/branding/ageku, set in palemoon/confvars.sh).
 
 mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/../obj
 mk_add_options MOZ_MAKE_FLAGS="-j18 -k"

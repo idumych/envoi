@@ -1,0 +1,35 @@
+# -*- Mode: python; c-basic-offset: 4; indent-tabs-mode: nil; tab-width: 40 -*-
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+# Ageku's own branding. It targets Haiku and Renku OS only, so it ships no
+# Windows or macOS installer art. Images come from make-images.sh.
+
+DIRS += ['content', 'locales']
+
+DIST_SUBDIR = 'browser'
+export('DIST_SUBDIR')
+
+JS_PREFERENCE_PP_FILES += [
+    'pref/ageku-branding.js',
+]
+
+BRANDING_FILES += [
+    'default16.png',
+    'default32.png',
+    'default48.png',
+    'license.txt',
+    'mozicon128.png',
+]
+FINAL_TARGET_FILES.icons += ['mozicon128.png']
+FINAL_TARGET_FILES.chrome.icons.default += [
+    'default16.png',
+    'default32.png',
+    'default48.png',
+]
+
+DEFINES['MOZ_APP_VERSION'] = CONFIG['MOZ_APP_VERSION']
+DEFINES['MOZ_BRANDING_DIRECTORY'] = CONFIG['MOZ_BRANDING_DIRECTORY']
+DEFINES['MOZILLA_UAVERSION_U'] = CONFIG['MOZILLA_UAVERSION_U']
+DEFINES['MOZILLA_COMPATVERSION_U'] = "52.9"

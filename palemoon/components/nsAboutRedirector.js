@@ -45,10 +45,6 @@ AboutRedirector.prototype = {
       url: "chrome://browser/content/newtab/newTab.xhtml",
       flags: ALLOW_SCRIPT
     },
-    "palemoon": {
-      url: "chrome://browser/content/palemoon.xhtml",
-      flags: (URI_SAFE_FOR_UNTRUSTED_CONTENT | HIDE_FROM_ABOUTABOUT)
-    },
     "permissions": {
       url: "chrome://browser/content/permissions/aboutPermissions.xul",
       flags: ALLOW_SCRIPT

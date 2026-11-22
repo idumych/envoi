@@ -89,10 +89,10 @@ pref("browser.dictionaries.download.url", "https://@AM_DOMAIN@/dictionaries/");
 pref("browser.getdevtools.url","https://@AM_DOMAIN@/?component=integration&type=external&request=devtools");
 
 // Feedback URL
-pref("browser.feedback.url", "https://forum.palemoon.org");
+pref("browser.feedback.url", "https://github.com/idumych/ageku/issues");
 
 // Help button in slow startup dialog
-pref("browser.slowstartup.help.url", "http://www.palemoon.org/support/slowstartup.shtml");
+pref("browser.slowstartup.help.url", "https://github.com/idumych/ageku");
 
 // Whether to escape to a content-less page if a user presses "Get me out of here"
 // on a network error page (e.g. cert error)
@@ -862,9 +862,9 @@ pref("gecko.handlerService.schemes.ircs.3.uriTemplate", "chrome://browser-region
 // By default, we don't want protocol/content handlers to be registered from a different host, see bug 402287
 pref("gecko.handlerService.allowRegisterFromDifferentHost", false);
 
-pref("browser.geolocation.warning.infoURL", "http://www.palemoon.org/info-url/geolocation.shtml");
-pref("browser.mixedcontent.warning.infoURL", "http://www.palemoon.org/info-url/mixedcontent.shtml");
-pref("browser.push.warning.infoURL", "https://www.palemoon.org/info-url/push.shtml");
+pref("browser.geolocation.warning.infoURL", "");
+pref("browser.mixedcontent.warning.infoURL", "");
+pref("browser.push.warning.infoURL", "");
 
 pref("browser.EULA.version", 3);
 pref("browser.rights.version", 3);
@@ -990,7 +990,7 @@ pref("browser.zoom.siteSpecific", true);
 pref("browser.zoom.updateBackgroundTabs", true);
 
 // base URL for web-based support pages
-pref("app.support.baseURL", "http://www.palemoon.org/support/");
+pref("app.support.baseURL", "https://github.com/idumych/ageku/wiki/");
 
 // Name of alternate about: page for certificate errors (when undefined, defaults to about:neterror)
 pref("security.alternate_certificate_error_page", "certerror");
@@ -1047,7 +1047,7 @@ pref("browser.taskbar.lists.refreshInSeconds", 120);
 
 #ifdef MOZ_SERVICES_SYNC
 // Info when outdated sync detected
-pref("services.sync.outdated.url", "http://www.palemoon.org/sync/update/");
+pref("services.sync.outdated.url", "");
 // The sync engines to use.
 pref("services.sync.registerEngines", "Bookmarks,Form,History,Password,Prefs,Tab,Addons");
 // Preferences to be synced by default
