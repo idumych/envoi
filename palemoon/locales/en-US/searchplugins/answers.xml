@@ -11,6 +11,6 @@
   <Param name="s" value="{searchTerms}"/>
 </Url>
 <Url type="application/x-suggestions+json" method="GET"
-     template="https://www.answers.com/main/startswith?output=json&amp;client=palemoon&amp;s={searchTerms}"/>
+     template="https://www.answers.com/main/startswith?output=json&amp;s={searchTerms}"/>
 <SearchForm>http://www.answers.com/</SearchForm>
 </SearchPlugin>
