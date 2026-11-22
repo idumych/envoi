@@ -54,8 +54,8 @@ add-ons site (`AM_DOMAIN` in `palemoon/app/profile/palemoon.js`); sync has no se
    app layer break.
 2. Ageku branding (above), then port the app layer.
 3. Smoke test (window, test page, HTTPS), then an `.hpkg` that passes check-artifact.
-4. Shared engine fixes go to uxp-haiku for both browsers: quit (`hey … quit` doesn't close the
-   app yet), xpcshell on Haiku, input testing, video.
+4. Shared engine fixes go to uxp-haiku for both browsers (quit: fixed 2026-11-22):
+   xpcshell on Haiku, input testing, video.
 5. Release test plan, and publish only when a human says so.
 
 ## Lessons from Basilisk to apply from the start
