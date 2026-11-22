@@ -1,25 +1,25 @@
-name			ageku
+name			envoi
 version			@VERSION@-@REVISION@
 architecture		@ARCH@
-summary			"Ageku, a web browser for Haiku and Renku OS"
+summary			"Envoi, a web browser for Haiku and Renku OS"
 description		"@DESCRIPTION@"
-packager		"The Ageku contributors"
-vendor			"The Ageku contributors"
+packager		"The Envoi contributors"
+vendor			"The Envoi contributors"
 copyrights		{
-	"The Ageku contributors"
+	"The Envoi contributors"
 	"Mozilla Foundation and contributors"
 }
 licenses		{
 	"MPL v2.0"
 }
 urls			{
-	"https://github.com/idumych/ageku"
+	"https://github.com/idumych/envoi"
 }
 
 provides		{
-	ageku = @VERSION@
-	app:Ageku = @VERSION@
-	cmd:ageku = @VERSION@
+	envoi = @VERSION@
+	app:Envoi = @VERSION@
+	cmd:envoi = @VERSION@
 }
 
 # Optional, dlopen()ed at run time (.hpkg has no "recommends"; noted in the

@@ -1,4 +1,4 @@
-# Test plan: Ageku
+# Test plan: Envoi
 
 Primary target: **Haiku R1/beta6 x86_64** (the
 `.hpkg` built in the beta6 VM). Secondary check: **Renku OS** x86_64 (the same
@@ -24,25 +24,25 @@ platform's evidence differs. Name UI elements by their labels.
 
 ## Fresh state
 
-Before each run, quit Ageku and remove its profile and caches:
+Before each run, quit Envoi and remove its profile and caches:
 
-    rm -rf /boot/home/config/settings/Ageku
-    pkgman uninstall -y ageku 2>/dev/null; pkgman install -y ./ageku-$V-1-x86_64.hpkg
+    rm -rf /boot/home/config/settings/Envoi
+    pkgman uninstall -y envoi 2>/dev/null; pkgman install -y ./envoi-$V-1-x86_64.hpkg
 
 
 ## Standard checks (release-test.md)
 
-install, attrs (`catattr BEOS:APP_SIG /boot/system/apps/Ageku/ageku` ->
-`application/x-vnd.Ageku`, Tracker shows the vector icon), launch from the
-Deskbar entry "Ageku", log-clean (no crash dialog, no `debug_server` report),
+install, attrs (`catattr BEOS:APP_SIG /boot/system/apps/Envoi/envoi` ->
+`application/x-vnd.Envoi`, Tracker shows the vector icon), launch from the
+Deskbar entry "Envoi", log-clean (no crash dialog, no `debug_server` report),
 quit with Command+Q.
 
 ## Feature checks
 
 ### page-load
 Steps: launch; type `http://$HOSTIP:8765/` in the address bar, press Enter.
-PASS when: OCR of the window shows "Ageku test page {p}" (save to
-`{p}-page-load.txt`) and the window title starts with "Ageku test page".
+PASS when: OCR of the window shows "Envoi test page {p}" (save to
+`{p}-page-load.txt`) and the window title starts with "Envoi test page".
 
 ### https
 Steps: open `https://example.com/`.
@@ -65,10 +65,10 @@ PASS when: the file is in `/boot/home/Downloads` (or the chosen folder) and
 `catattr BEOS:TYPE <file>` prints `application/zip` (`{p}-download.txt`).
 
 ### single-launch
-Steps: with Ageku running, run `open http://$HOSTIP:8765/` in Terminal, then
-drop an `.html` file from Tracker onto the Ageku Deskbar entry/icon.
+Steps: with Envoi running, run `open http://$HOSTIP:8765/` in Terminal, then
+drop an `.html` file from Tracker onto the Envoi Deskbar entry/icon.
 PASS when: both open in the running instance (new tab or window) and
-`roster | grep -c x-vnd.Ageku` (or `ps | grep -c /ageku`) shows one team;
+`roster | grep -c x-vnd.Envoi` (or `ps | grep -c /envoi`) shows one team;
 write `teams=1` to `{p}-single-launch.txt`.
 
 ## Further checks (record the result in the notes; not gated)
@@ -88,7 +88,7 @@ write `teams=1` to `{p}-single-launch.txt`.
 - **Quit and session restore**: open three tabs, Command+Q, relaunch; with
   "Restore previous session" (or History > Restore Previous Session) the tabs come back.
 - **Single launch from another app**: click an http link in another app
-  (e.g. a link in StyledEdit/Mail) with Ageku set as the preferred
+  (e.g. a link in StyledEdit/Mail) with Envoi set as the preferred
   `text/html` app (FileTypes) -> it opens in the running instance.
 - **Renku**: install the same `.hpkg` on Renku x86_64 and repeat page-load, https and
   form-input; note differences.

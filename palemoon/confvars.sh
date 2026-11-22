@@ -8,8 +8,8 @@
 # These values where appropriate are hardcoded in application.ini
 # to "Pale Moon" and "Moonchild Productions" respectively for
 # Pale Moon
-MOZ_APP_BASENAME=Ageku
-MOZ_APP_VENDOR=Ageku
+MOZ_APP_BASENAME=Envoi
+MOZ_APP_VENDOR=Envoi
 
 # Application Version
 # MOZ_APP_VERSION is read from ./config/version.txt
@@ -33,7 +33,7 @@ MOZ_APP_STATIC_INI=1
 # Changing MOZ_*BRANDING_DIRECTORY requires a clobber because branding
 # dependencies are broken.
 # MOZ_APP_DISPLAYNAME will be set by [branding]/configure.sh
-MOZ_BRANDING_DIRECTORY=palemoon/branding/ageku
+MOZ_BRANDING_DIRECTORY=palemoon/branding/envoi
 MOZ_OFFICIAL_BRANDING_DIRECTORY=palemoon/branding/official
 
 # Enables conditional code in the platform for Pale Moon only
@@ -92,7 +92,7 @@ fi
 # Currently, only omni and flat are supported
 MOZ_CHROME_FILE_FORMAT=omni
 JAR_COMPRESSION=brotli
-OMNIJAR_NAME=ageku.res
+OMNIJAR_NAME=envoi.res
 
 # Include bundled fonts by default on Windows and GTK
 if test "$MOZ_WIDGET_TOOLKIT" = "windows" -o \

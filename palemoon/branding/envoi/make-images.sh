@@ -1,5 +1,5 @@
 #!/bin/sh
-# Draws Ageku's branding PNGs from the app icon (../../app/haiku/icon-preview.svg,
+# Draws Envoi's branding PNGs from the app icon (../../app/haiku/icon-preview.svg,
 # made by make-icon.py). Needs rsvg-convert and ImageMagick. Run from this directory.
 set -e
 ICON=../../app/haiku/icon-preview.svg
@@ -17,8 +17,8 @@ cat > "$TMP" <<SVG
 <stop offset="0" stop-color="#1d2a44"/><stop offset="1" stop-color="#0d1424"/></linearGradient></defs>
 <rect width="700" height="410" fill="url(#bg)"/>
 <image x="206" y="28" width="104" height="104" xlink:href="data:image/svg+xml;base64,$ICONDATA"/>
-<text x="330" y="96" font-family="DejaVu Serif, serif" font-size="52" fill="#f6efdc">Ageku</text>
-<text x="332" y="124" font-family="Noto Sans CJK JP, Noto Serif CJK JP, sans-serif" font-size="16" fill="#c9b98f">挙句 · the closing verse</text>
+<text x="330" y="96" font-family="DejaVu Serif, serif" font-size="52" fill="#f6efdc">Envoi</text>
+<text x="332" y="124" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#c9b98f">the closing verse that sends a poem on</text>
 </svg>
 SVG
 rsvg-convert "$TMP" -o content/about-background.png

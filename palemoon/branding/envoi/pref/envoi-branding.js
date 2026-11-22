@@ -2,9 +2,9 @@
    License, v. 2.0. If a copy of the MPL was not distributed with this
    file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-// Ageku is independent: no links to, or services of, any other browser project.
-pref("app.vendorURL", "https://github.com/idumych/ageku");
-pref("app.releaseNotesURL", "https://github.com/idumych/ageku/releases");
+// Envoi is independent: no links to, or services of, any other browser project.
+pref("app.vendorURL", "https://github.com/idumych/envoi");
+pref("app.releaseNotesURL", "https://github.com/idumych/envoi/releases");
 pref("app.update.enabled", false);
 pref("app.update.url", "");
 pref("browser.identity.ssl_domain_display", 1);

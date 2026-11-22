@@ -7,14 +7,14 @@
 #   packaging/haiku/smoke-test.sh [APP_PATH] [OUT_DIR]
 #
 #   APP_PATH  browser binary in the VM
-#             (default /boot/home/work/ageku/obj/dist/bin/ageku)
+#             (default /boot/home/work/envoi/obj/dist/bin/envoi)
 #   OUT_DIR   host directory for results (default ./smoke-<date>)
 #
 # Environment:
 #   VM=basilisk-haiku          ssh host of the VM
 #   VMDIR=~/VMs/basilisk-haiku QEMU VM dir (for screenshots)
 #   APP_NAME=<binary name>     name `hey` uses to quit the app: Haiku registers the
-#                              app under its file name (ageku, not Ageku)
+#                              app under its file name (envoi, not Envoi)
 #   APP_ARGS=...               default: -profile /boot/home/work/smoke-profile -no-remote
 #   MOZLOG=...                 MOZ_LOG value (default: widget/gfx at level 4)
 #   WAIT_START=25              seconds before the first screenshot
@@ -31,7 +31,7 @@ set -u
 VM=${VM:-basilisk-haiku}
 VMDIR=${VMDIR:-$HOME/VMs/basilisk-haiku}
 QEMUVM=${QEMUVM:-/home/ian/.claude/skills/beos-app-platforms/scripts/qemu-vm.sh}
-APP=${1:-/boot/home/work/ageku/obj/dist/bin/ageku}
+APP=${1:-/boot/home/work/envoi/obj/dist/bin/envoi}
 OUT=${2:-./smoke-$(date +%Y%m%d-%H%M%S)}
 APP_NAME=${APP_NAME:-$(basename "$APP")}
 PROFILE=$(printf '%s\n' "$APP_ARGS" | sed -n 's/.*-profile \([^ ]*\).*/\1/p')

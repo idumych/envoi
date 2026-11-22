@@ -1,13 +1,13 @@
 #!/bin/sh
-# Build ageku-<VERSION>-<REVISION>-<arch>.hpkg from a packaged objdir.
+# Build envoi-<VERSION>-<REVISION>-<arch>.hpkg from a packaged objdir.
 #
-#   MOZ_DISABLE_PRECOMPILED_STARTUPCACHE=1 make -C OBJDIR package   # stages OBJDIR/dist/ageku
+#   MOZ_DISABLE_PRECOMPILED_STARTUPCACHE=1 make -C OBJDIR package   # stages OBJDIR/dist/envoi
 #   packaging/haiku/build-hpkg.sh [OBJDIR] [OUTDIR] [ARCH]
 #
 # ARCH is x86_64 (default; run on Haiku) or arm64 (Renku OS; run on the Linux
 # build host with the cross tools' package and addattr on PATH, see
-# packaging/haiku/build-arm64.md). Installs to apps/Ageku with a Deskbar link
-# and bin/ageku. Version and requirements come from haiku-app.env.
+# packaging/haiku/build-arm64.md). Installs to apps/Envoi with a Deskbar link
+# and bin/envoi. Version and requirements come from haiku-app.env.
 set -e
 
 here=$(cd "$(dirname "$0")" && pwd)
@@ -16,31 +16,31 @@ top=$(cd "$here/../.." && pwd)
 objdir=${1:-${MOZ_OBJDIR:-$top/../obj}}
 outdir=${2:-.}
 arch=${3:-x86_64}
-appdir="$objdir/dist/ageku"
+appdir="$objdir/dist/envoi"
 requires=$HPKG_REQUIRES_EXTRA
 [ "$arch" = arm64 ] && requires=${HPKG_REQUIRES_ARM64-$HPKG_REQUIRES_EXTRA}
 
-if [ ! -x "$appdir/ageku" ]; then
-	echo "build-hpkg.sh: $appdir/ageku not found; run make package first" >&2
+if [ ! -x "$appdir/envoi" ]; then
+	echo "build-hpkg.sh: $appdir/envoi not found; run make package first" >&2
 	exit 1
 fi
 
-stage=$(mktemp -d "${TMPDIR:-/tmp}/ageku-hpkg.XXXXXX")
+stage=$(mktemp -d "${TMPDIR:-/tmp}/envoi-hpkg.XXXXXX")
 trap 'rm -rf "$stage"' EXIT
 
-mkdir -p "$stage/apps/Ageku" "$stage/bin" "$stage/data/deskbar/menu/Applications"
-cp -a "$appdir/." "$stage/apps/Ageku/"
-ln -s ../../../../apps/Ageku/ageku "$stage/data/deskbar/menu/Applications/Ageku"
-ln -s ../apps/Ageku/ageku "$stage/bin/ageku"
+mkdir -p "$stage/apps/Envoi" "$stage/bin" "$stage/data/deskbar/menu/Applications"
+cp -a "$appdir/." "$stage/apps/Envoi/"
+ln -s ../../../../apps/Envoi/envoi "$stage/data/deskbar/menu/Applications/Envoi"
+ln -s ../apps/Envoi/envoi "$stage/bin/envoi"
 
 if [ "$arch" = x86_64 ]; then
 	# Tracker reads the signature and icon attached at link time.
-	mimeset -f "$stage/apps/Ageku/ageku" "$stage/apps/Ageku/ageku-bin" 2>/dev/null || true
+	mimeset -f "$stage/apps/Envoi/envoi" "$stage/apps/Envoi/envoi-bin" 2>/dev/null || true
 else
 	# The host's mimeset doesn't know arm64 binaries: write the attributes.
-	for f in ageku ageku-bin; do
-		addattr -t mime BEOS:TYPE application/x-vnd.Be-elfexecutable "$stage/apps/Ageku/$f"
-		addattr -t mime BEOS:APP_SIG "$APP_SIG" "$stage/apps/Ageku/$f"
+	for f in envoi envoi-bin; do
+		addattr -t mime BEOS:TYPE application/x-vnd.Be-elfexecutable "$stage/apps/Envoi/$f"
+		addattr -t mime BEOS:APP_SIG "$APP_SIG" "$stage/apps/Envoi/$f"
 	done
 fi
 

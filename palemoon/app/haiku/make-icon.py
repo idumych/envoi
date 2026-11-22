@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""make-icon.py: writes Ageku's Haiku vector icon (HVIF) as an .rdef resource.
+"""make-icon.py: writes Envoi's Haiku vector icon (HVIF) as an .rdef resource.
 Based on the beos-app-platforms make-hvif-icon.py.
 
 Haiku has no host-side HVIF tool, so this encodes the flat icon format
@@ -134,8 +134,8 @@ def stroke(x, top, bottom, width, lean):
 
 
 def build():
-    """Ageku: a sheet of renku paper with three linked verses in ink, closed
-    by a red seal (the closing verse) that carries a small globe."""
+    """Envoi: a sheet of paper with three verses in ink, closed by a red
+    seal (the envoi, the closing stanza) that carries a small globe."""
     styles = [
         solid(92, 78, 58),                                  # 0 paper edge
         vertical_gradient((252, 246, 230, 255),

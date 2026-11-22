@@ -3,7 +3,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-# Ageku's own branding. It targets Haiku and Renku OS only, so it ships no
+# Envoi's own branding. It targets Haiku and Renku OS only, so it ships no
 # Windows or macOS installer art. Images come from make-images.sh.
 
 DIRS += ['content', 'locales']
@@ -12,7 +12,7 @@ DIST_SUBDIR = 'browser'
 export('DIST_SUBDIR')
 
 JS_PREFERENCE_PP_FILES += [
-    'pref/ageku-branding.js',
+    'pref/envoi-branding.js',
 ]
 
 BRANDING_FILES += [

@@ -4,7 +4,7 @@
     python3 -I release/fixture/serve.py PORT LOGFILE PLATFORM
 
 Serves:
-  /            a page titled "Ageku test page <PLATFORM>" with a form
+  /            a page titled "Envoi test page <PLATFORM>" with a form
   /submit?q=   logs "q=<value>" to LOGFILE and echoes it
   /sample.zip  a small zip file (for the download/BEOS:TYPE check)
 Every request is logged to LOGFILE.
@@ -42,8 +42,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
         url = urllib.parse.urlsplit(self.path)
         log("GET " + self.path)
         if url.path == "/":
-            page = ("<!doctype html><title>Ageku test page %s</title>"
-                    "<h1>Ageku test page %s</h1>"
+            page = ("<!doctype html><title>Envoi test page %s</title>"
+                    "<h1>Envoi test page %s</h1>"
                     "<form action=/submit><input name=q autofocus>"
                     "<button>Send</button></form>"
                     "<p><a href=/sample.zip>sample.zip</a>") % (PLATFORM, PLATFORM)

@@ -89,10 +89,10 @@ pref("browser.dictionaries.download.url", "https://@AM_DOMAIN@/dictionaries/");
 pref("browser.getdevtools.url","https://@AM_DOMAIN@/?component=integration&type=external&request=devtools");
 
 // Feedback URL
-pref("browser.feedback.url", "https://github.com/idumych/ageku/issues");
+pref("browser.feedback.url", "https://github.com/idumych/envoi/issues");
 
 // Help button in slow startup dialog
-pref("browser.slowstartup.help.url", "https://github.com/idumych/ageku");
+pref("browser.slowstartup.help.url", "https://github.com/idumych/envoi");
 
 // Whether to escape to a content-less page if a user presses "Get me out of here"
 // on a network error page (e.g. cert error)
@@ -990,7 +990,7 @@ pref("browser.zoom.siteSpecific", true);
 pref("browser.zoom.updateBackgroundTabs", true);
 
 // base URL for web-based support pages
-pref("app.support.baseURL", "https://github.com/idumych/ageku/wiki/");
+pref("app.support.baseURL", "https://github.com/idumych/envoi/wiki/");
 
 // Name of alternate about: page for certificate errors (when undefined, defaults to about:neterror)
 pref("security.alternate_certificate_error_page", "certerror");

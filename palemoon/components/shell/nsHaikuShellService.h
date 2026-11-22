@@ -9,7 +9,7 @@
 #include "nsIShellService.h"
 #include "mozilla/Attributes.h"
 
-// Default-browser handling on Haiku: Ageku is the default browser when it
+// Default-browser handling on Haiku: Envoi is the default browser when it
 // is the preferred application of the web MIME types and URL schemes.
 class nsHaikuShellService final : public nsIShellService
 {

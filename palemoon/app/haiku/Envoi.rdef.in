@@ -1,21 +1,21 @@
 /*
- * Haiku application resources for Ageku.
- * palemoon/app/Makefile.in copies this to Ageku.rdef, compiles it with rc
+ * Haiku application resources for Envoi.
+ * palemoon/app/Makefile.in copies this to Envoi.rdef, compiles it with rc
  * and attaches it with xres right after linking (after any strip, which drops
  * resources).
  */
 
-resource app_signature "application/x-vnd.Ageku";
+resource app_signature "application/x-vnd.Envoi";
 
 /* The name the engine shows in notifications and print jobs. */
-resource(1, "UXP:APP_NAME") "Ageku";
+resource(1, "UXP:APP_NAME") "Envoi";
 
 /* One instance per signature (no X11 remoting on Haiku): a second launch hands
  * its arguments to the running instance. -P/-profile and -no-remote get their
  * own signature, which B_EXCLUSIVE_LAUNCH lets run alongside. */
 resource app_flags B_EXCLUSIVE_LAUNCH;
 
-/* Ageku's own version (= VERSION in haiku-app.env and the package version). */
+/* Envoi's own version (= VERSION in haiku-app.env and the package version). */
 resource app_version {
 	major  = 0,
 	middle = 1,
@@ -24,8 +24,8 @@ resource app_version {
 	variety = B_APPV_FINAL,
 	internal = 0,
 
-	short_info = "Ageku 0.1.0",
-	long_info = "Ageku 0.1.0, a web browser for Haiku and Renku OS."
+	short_info = "Envoi 0.1.0",
+	long_info = "Envoi 0.1.0, a web browser for Haiku and Renku OS."
 };
 
 resource file_types message {

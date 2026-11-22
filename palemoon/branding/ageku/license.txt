@@ -1,3 +1,0 @@
-Ageku's name, icon and artwork are part of the Ageku project
-(https://github.com/idumych/ageku) and are released with its source under the
-Mozilla Public License 2.0.

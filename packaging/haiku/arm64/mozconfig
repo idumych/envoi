@@ -1,0 +1,72 @@
+# Envoi for Renku OS arm64, cross-built on Linux (see packaging/haiku/arm64/README.md).
+# Needs: the Haiku arm64 cross tools (aarch64-unknown-haiku-gcc, rc, xres on PATH) and an
+# arm64 sysroot in $ENVOI_SR with Renku's arm64 packages plus NSPR, NSS and libevent
+# cross-built by packaging/haiku/arm64/build-deps.sh.
+
+SR=${ENVOI_SR:?set ENVOI_SR to the arm64 sysroot}
+mk_add_options MOZ_OBJDIR=${ENVOI_ARM64_OBJ:-@TOPSRCDIR@/../obj-arm64}
+mk_add_options MOZ_MAKE_FLAGS="-j${ENVOI_JOBS:-12}"
+mk_add_options AUTOCLOBBER=1
+
+export PYTHON3=${ENVOI_PYTHON3:-python3.12}
+
+# Haiku's gcc searches the kit headers itself; the cross gcc needs them spelled out
+# (os, its kits, os/drivers and a few add-on folders; the C library last).
+H=$SR/develop/headers
+# -isystem, not -I: like the native compiler's own kit paths, they must come after
+# Gecko's -I paths, or kit headers with common names (os/media ...) shadow Gecko's.
+INC="-isystem $H/os"
+for d in $H/os/*/; do
+	case $d in */arch/|*/private/) continue ;; esac
+	INC="$INC -isystem ${d%/}"
+done
+for d in graphics input_server screen_saver tracker; do INC="$INC -isystem $H/os/add-ons/$d"; done
+INC="$INC -isystem $H/be_apps/Tracker -idirafter $H/bsd -idirafter $H/gnu -idirafter $H/posix -idirafter $H"
+# In CC/CXX themselves: some configure checks run the compiler without CFLAGS/CPPFLAGS.
+export CC="aarch64-unknown-haiku-gcc --sysroot=$SR -B$SR/develop/lib $INC"
+export CXX="aarch64-unknown-haiku-g++ --sysroot=$SR -B$SR/develop/lib $INC"
+export LDFLAGS="-L$SR/develop/lib -L$SR/lib -Wl,-rpath-link=$SR/lib"
+export HOST_CC=gcc HOST_CXX=g++ HOST_CFLAGS= HOST_CXXFLAGS= HOST_LDFLAGS=
+export PKG_CONFIG_LIBDIR=$SR/develop/lib/pkgconfig
+export PKG_CONFIG_PATH=
+export AR=aarch64-unknown-haiku-ar RANLIB=aarch64-unknown-haiku-ranlib
+export STRIP=aarch64-unknown-haiku-strip OBJCOPY=aarch64-unknown-haiku-objcopy
+
+ac_add_options --target=aarch64-unknown-haiku
+ac_add_options --enable-application=palemoon
+ac_add_options --enable-default-toolkit=cairo-haiku
+ac_add_options --enable-optimize="-O2 -w"
+ac_add_options --disable-debug
+ac_add_options --disable-official-branding
+ac_add_options --enable-update-channel=release
+ac_add_options --enable-devtools
+ac_add_options --with-pthreads
+# The host's gold linker can't link aarch64; use the cross binutils' ld.
+ac_add_options --disable-gold
+
+# System libraries (from the sysroot; NSPR, NSS and libevent ship in the package)
+ac_add_options --with-system-nspr
+ac_add_options --with-system-nss
+ac_add_options --with-system-zlib
+ac_add_options --with-system-bz2
+ac_add_options --with-system-ffi
+ac_add_options --with-system-jpeg
+ac_add_options --disable-libjpeg-turbo
+
+# As on x86_64
+ac_add_options --disable-jemalloc
+ac_add_options --disable-crashreporter
+ac_add_options --disable-updater
+ac_add_options --disable-maintenance-service
+ac_add_options --disable-webrtc
+ac_add_options --disable-npapi
+ac_add_options --disable-dbus
+ac_add_options --disable-necko-wifi
+ac_add_options --disable-pulseaudio
+ac_add_options --disable-gamepad
+ac_add_options --disable-elf-hack
+ac_add_options --enable-strip
+ac_add_options --disable-parental-controls
+ac_add_options --disable-synth-speechd
+ac_add_options --disable-gpsd
+ac_add_options --disable-accessibility

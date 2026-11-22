@@ -1,0 +1,3 @@
+Envoi's name, icon and artwork are part of the Envoi project
+(https://github.com/idumych/envoi) and are released with its source under the
+Mozilla Public License 2.0.

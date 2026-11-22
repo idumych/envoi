@@ -18,7 +18,7 @@
 #pragma GCC visibility pop
 
 // Must match the BApplication signature in widget/haiku/HaikuApplication.cpp.
-#define APP_SIGNATURE "application/x-vnd.Ageku"
+#define APP_SIGNATURE "application/x-vnd.Envoi"
 
 static const char* const kHttpTypes[] = {
   "application/x-vnd.Be.URL.http",
