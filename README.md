@@ -1,16 +1,19 @@
-# Pale Moon web browser
+# Ageku
 
-This is the source code for the Pale Moon web browser, an independent browser derived from Firefox/Mozilla community code. The source tree is
-laid out in a "comm-central" style configuration where only the code specific to Pale Moon is kept in this repository.
+**Ageku** (挙句, "the closing verse": the verse that completes a renku) is a web browser for
+[Haiku](https://www.haiku-os.org/) and [Renku OS](https://github.com/RenkuOS/Source), with a
+native Haiku user interface. It's an independent community project, built on the Unified XUL
+Platform (UXP) with the Haiku engine work from [idumych/uxp-haiku](https://github.com/idumych/uxp-haiku)
+(branch `haiku-ageku`), which is the `platform` submodule here.
 
-The shared Unified XUL Platform source code is referenced here as a git submodule contained in the `platform/` directory and is required to build the application.
+Ageku is not endorsed by, or affiliated with, any other browser project. Please report problems
+here, not to any upstream project.
 
-## Getting the platform sub-module
-`git submodule init && git submodule update`
+**Status:** just started. During the transition to its own identity, the build uses the
+unofficial branding supplied in its source; Ageku's own name, logo and icon replace it as the
+port takes shape. See [PLAN-HAIKU.md](PLAN-HAIKU.md).
 
-## Resources
+## Licence
 
- * [Build Pale Moon for Windows](https://developer.palemoon.org/build/windows/)
- * [Build Pale Moon for Linux](https://developer.palemoon.org/build/linux/)
- * [Pale Moon home page](http://www.palemoon.org/)
- * [Code of Conduct, Contributing, and UXP Coding style](https://repo.palemoon.org/MoonchildProductions/UXP/src/branch/master/docs)
+MPL 2.0 (see [LICENSE](LICENSE)); some bundled components carry other licences. Read
+[TRADEMARK](TRADEMARK) for the trademark notice that comes with the source.

@@ -1,3 +1,4 @@
 [submodule "platform"]
 	path = platform
-url=https://repo.palemoon.org/MoonchildProductions/UXP
+	url = https://github.com/idumych/uxp-haiku.git
+	branch = haiku-ageku
