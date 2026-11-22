@@ -1,0 +1,14 @@
+diff --git a/coreconf/Haiku.mk b/coreconf/Haiku.mk
+index 69d8297..f8e2bc5 100644
+--- a/coreconf/Haiku.mk
++++ b/coreconf/Haiku.mk
+@@ -17,6 +17,9 @@ ifeq ($(USE_PTHREADS),1)
+ 	IMPL_STRATEGY = _PTH
+ endif
+ 
++ifeq ($(OS_TEST),aarch64)
++	CPU_ARCH	= aarch64
++endif
+ ifeq ($(OS_TEST),ppc)
+ 	CPU_ARCH	= ppc
+ endif

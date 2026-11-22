@@ -37,6 +37,14 @@ if [ "$arch" = x86_64 ]; then
 	# Tracker reads the signature and icon attached at link time.
 	mimeset -f "$stage/apps/Envoi/envoi" "$stage/apps/Envoi/envoi-bin" 2>/dev/null || true
 else
+	# Renku arm64 has no NSPR, NSS or libevent packages: ship the ones
+	# packaging/haiku/arm64/build-deps.sh cross-built. runtime_loader looks in
+	# the app's lib folder; Gecko loads the root certificates from its own.
+	bundle=${ENVOI_ARM64_BUNDLE:-$HOME/.cache/envoi-arm64/bundle}
+	[ -s "$bundle/libnss3.so" ] || { echo "build-hpkg.sh: no $bundle/libnss3.so (run build-deps.sh)" >&2; exit 1; }
+	mkdir -p "$stage/apps/Envoi/lib"
+	cp "$bundle"/lib* "$stage/apps/Envoi/lib/"
+	cp "$bundle/libnssckbi.so" "$stage/apps/Envoi/"
 	# The host's mimeset doesn't know arm64 binaries: write the attributes.
 	for f in envoi envoi-bin; do
 		addattr -t mime BEOS:TYPE application/x-vnd.Be-elfexecutable "$stage/apps/Envoi/$f"
