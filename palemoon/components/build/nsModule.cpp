@@ -14,6 +14,8 @@
 #include "nsMacShellService.h"
 #elif defined(MOZ_WIDGET_GTK)
 #include "nsGNOMEShellService.h"
+#elif defined(MOZ_WIDGET_HAIKU)
+#include "nsHaikuShellService.h"
 #endif
 
 #include "rdf.h"
@@ -32,6 +34,8 @@ NS_GENERIC_FACTORY_CONSTRUCTOR(nsWindowsShellService)
 NS_GENERIC_FACTORY_CONSTRUCTOR(nsMacShellService)
 #elif defined(MOZ_WIDGET_GTK)
 NS_GENERIC_FACTORY_CONSTRUCTOR_INIT(nsGNOMEShellService, Init)
+#elif defined(MOZ_WIDGET_HAIKU)
+NS_GENERIC_FACTORY_CONSTRUCTOR(nsHaikuShellService)
 #endif
 
 NS_GENERIC_FACTORY_CONSTRUCTOR(nsFeedSniffer)
@@ -39,7 +43,7 @@ NS_GENERIC_FACTORY_CONSTRUCTOR(nsFeedSniffer)
 NS_DEFINE_NAMED_CID(NS_BROWSERDIRECTORYPROVIDER_CID);
 #if defined(XP_WIN)
 NS_DEFINE_NAMED_CID(NS_SHELLSERVICE_CID);
-#elif defined(MOZ_WIDGET_GTK)
+#elif defined(MOZ_WIDGET_GTK) || defined(MOZ_WIDGET_HAIKU)
 NS_DEFINE_NAMED_CID(NS_SHELLSERVICE_CID);
 #endif
 NS_DEFINE_NAMED_CID(NS_FEEDSNIFFER_CID);
@@ -53,6 +57,8 @@ static const mozilla::Module::CIDEntry kBrowserCIDs[] = {
     { &kNS_SHELLSERVICE_CID, false, nullptr, nsWindowsShellServiceConstructor },
 #elif defined(MOZ_WIDGET_GTK)
     { &kNS_SHELLSERVICE_CID, false, nullptr, nsGNOMEShellServiceConstructor },
+#elif defined(MOZ_WIDGET_HAIKU)
+    { &kNS_SHELLSERVICE_CID, false, nullptr, nsHaikuShellServiceConstructor },
 #endif
     { &kNS_FEEDSNIFFER_CID, false, nullptr, nsFeedSnifferConstructor },
 #ifdef XP_MACOSX
@@ -65,7 +71,7 @@ static const mozilla::Module::ContractIDEntry kBrowserContracts[] = {
     { NS_BROWSERDIRECTORYPROVIDER_CONTRACTID, &kNS_BROWSERDIRECTORYPROVIDER_CID },
 #if defined(XP_WIN)
     { NS_SHELLSERVICE_CONTRACTID, &kNS_SHELLSERVICE_CID },
-#elif defined(MOZ_WIDGET_GTK)
+#elif defined(MOZ_WIDGET_GTK) || defined(MOZ_WIDGET_HAIKU)
     { NS_SHELLSERVICE_CONTRACTID, &kNS_SHELLSERVICE_CID },
 #endif
     { NS_FEEDSNIFFER_CONTRACTID, &kNS_FEEDSNIFFER_CID },

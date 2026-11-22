@@ -33,3 +33,7 @@ if CONFIG['OS_ARCH'] == 'WINNT':
 # GTK2: Need to link with glib for GNOME shell service
 if CONFIG['MOZ_WIDGET_TOOLKIT'] in ('cocoa', 'gtk2', 'gtk3'):
     OS_LIBS += CONFIG['TK_LIBS']
+
+# Haiku shell service: BMimeType, BRoster, BScreen
+if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'haiku':
+    OS_LIBS += ['be']

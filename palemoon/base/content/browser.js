@@ -1714,6 +1714,8 @@ function BrowserReloadOrDuplicate(aEvent) {
   var backgroundTabModifier = aEvent.button == 1 ||
 #ifdef XP_MACOSX
     aEvent.metaKey;
+#elif defined(MOZ_WIDGET_HAIKU)
+    aEvent.altKey;
 #else
     aEvent.ctrlKey;
 #endif

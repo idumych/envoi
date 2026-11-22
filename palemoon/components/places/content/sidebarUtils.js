@@ -32,6 +32,8 @@ var SidebarUtils = {
 
 #ifdef XP_MACOSX
     var modifKey = aEvent.metaKey || aEvent.shiftKey;
+#elif defined(MOZ_WIDGET_HAIKU)
+    var modifKey = aEvent.altKey || aEvent.shiftKey;
 #else
     var modifKey = aEvent.ctrlKey || aEvent.shiftKey;
 #endif

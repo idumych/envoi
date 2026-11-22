@@ -377,6 +377,8 @@
               (aTriggeringEvent instanceof KeyEvent)) {
 #ifdef XP_MACOSX
             let accel = aTriggeringEvent.metaKey;
+#elif defined(MOZ_WIDGET_HAIKU)
+            let accel = aTriggeringEvent.altKey;
 #else
             let accel = aTriggeringEvent.ctrlKey;
 #endif

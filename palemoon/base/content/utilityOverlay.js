@@ -159,6 +159,11 @@ function whereToOpenLink(e, ignoreButton, ignoreAlt) {
 
 #ifdef XP_MACOSX
   if (meta || (middle && middleUsesTabs)) {
+#elif defined(MOZ_WIDGET_HAIKU)
+  // Alt is the accelerator (Command) key on Haiku, so it can't also mean
+  // "save link".
+  alt = false;
+  if (e.altKey || (middle && middleUsesTabs)) {
 #else
   if (ctrl || (middle && middleUsesTabs)) {
 #endif

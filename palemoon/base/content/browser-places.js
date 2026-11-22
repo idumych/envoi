@@ -782,6 +782,9 @@ var BookmarksEventHandler = {
     // Only handle middle-click or left-click with modifiers.
 #ifdef XP_MACOSX
     var modifKey = aEvent.metaKey || aEvent.shiftKey;
+#elif defined(MOZ_WIDGET_HAIKU)
+    // Alt is the accelerator (Command) key on Haiku.
+    var modifKey = aEvent.altKey || aEvent.shiftKey;
 #else
     var modifKey = aEvent.ctrlKey || aEvent.shiftKey;
 #endif

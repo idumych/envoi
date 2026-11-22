@@ -4460,6 +4460,11 @@
       ]]></handler>
 
       <handler event="keypress"><![CDATA[
+#ifdef MOZ_WIDGET_HAIKU
+        // Alt is the accelerator (Command) key on Haiku.
+        if (event.ctrlKey || event.shiftKey || !event.altKey || event.metaKey)
+          return;
+#else
         if (event.altKey || event.shiftKey ||
 #ifdef XP_MACOSX
             !event.metaKey)
@@ -4467,6 +4472,7 @@
             !event.ctrlKey || event.metaKey)
 #endif
           return;
+#endif
 
         switch (event.keyCode) {
           case KeyEvent.DOM_VK_UP:

@@ -143,6 +143,8 @@ function onListClick(aEvent) {
     // on a tab's title.
 #ifdef XP_MACOSX
     let accelKey = aEvent.metaKey;
+#elif defined(MOZ_WIDGET_HAIKU)
+    let accelKey = aEvent.altKey;
 #else
     let accelKey = aEvent.ctrlKey;
 #endif
