@@ -9,9 +9,11 @@ Platform (UXP) with the Haiku engine work from [idumych/uxp-haiku](https://githu
 Ageku is not endorsed by, or affiliated with, any other browser project. Please report problems
 here, not to any upstream project.
 
-**Status:** just started. During the transition to its own identity, the build uses the
-unofficial branding supplied in its source; Ageku's own name, logo and icon replace it as the
-port takes shape. See [PLAN-HAIKU.md](PLAN-HAIKU.md).
+**Status:** early. Ageku builds in a Haiku R1/beta6 VM, starts, draws a native window, renders
+pages and runs under its own name, icon and app signature, with its own branding
+(`palemoon/branding/ageku`). Not yet packaged or released. See [PLAN-HAIKU.md](PLAN-HAIKU.md).
+
+![Ageku on Haiku R1/beta6, first start](docs/screenshots/ageku-start-2026-11-22.png)
 
 ## Licence
 

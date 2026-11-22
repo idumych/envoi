@@ -33,6 +33,14 @@ from an `.hpkg`.
 
 ## Branding work
 
+Done (first pass, 2026-11-22): `palemoon/branding/ageku` is the default branding; the program
+is `ageku`; default bookmarks, first-run/update pages, error-page strings, the About dialog,
+the binary licence text, search-plugin partner codes and upstream add-on install permissions
+were replaced or removed. A sweep of the built app finds the upstream name only in code
+comments, a sync-URL migration, a reader-mode domain list and the platform's build-instructions
+link in about:license. Still open: the add-on catalogue and blocklist point at the upstream
+add-ons site (`AM_DOMAIN` in `palemoon/app/profile/palemoon.js`); sync has no server.
+
 1. A branding directory of Ageku's own (`branding/ageku`): name, wordmark, about-dialog art, and
    a vector icon (HVIF, via make-hvif-icon.py) that doesn't derive from any upstream logo.
    Theme it on renku: the closing verse, linked verses.
