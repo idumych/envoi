@@ -45,18 +45,13 @@ ifeq ($(OS_ARCH),Haiku)
 # Haiku keeps the app signature, version, supported types and the vector icon
 # as resources appended to the executable. Attach them after the link (and
 # after any strip, which would drop them) via MOZ_POST_PROGRAM_COMMAND.
-HAIKU_APP_VERSION := $(firstword $(subst a, ,$(subst b, ,$(MOZ_APP_VERSION))))
-HAIKU_APP_VERSION_PARTS := $(subst ., ,$(HAIKU_APP_VERSION)) 0 0 0
 HAIKU_RSRC = $(MOZ_APP_NAME).rsrc
 EXTRA_DEPS += $(HAIKU_RSRC)
 GARBAGE += $(HAIKU_RSRC) Ageku.rdef
 MOZ_POST_PROGRAM_COMMAND = $(srcdir)/haiku/attach-resources.sh $(HAIKU_RSRC)
 
 Ageku.rdef: $(srcdir)/haiku/Ageku.rdef.in $(DEPTH)/config/autoconf.mk
-	sed -e 's/@APP_VERSION@/$(MOZ_APP_VERSION)/g' \
-	    -e 's/@APP_MAJOR@/$(word 1,$(HAIKU_APP_VERSION_PARTS))/' \
-	    -e 's/@APP_MIDDLE@/$(word 2,$(HAIKU_APP_VERSION_PARTS))/' \
-	    -e 's/@APP_MINOR@/$(word 3,$(HAIKU_APP_VERSION_PARTS))/' $< > $@
+	cp $< $@
 
 $(HAIKU_RSRC): Ageku.rdef $(srcdir)/haiku/icon.rdef
 	rc -I $(srcdir)/haiku -o $@ Ageku.rdef

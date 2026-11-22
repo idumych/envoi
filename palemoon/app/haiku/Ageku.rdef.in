@@ -1,6 +1,6 @@
 /*
  * Haiku application resources for Ageku.
- * palemoon/app/Makefile.in fills in the @...@ fields, compiles this with rc
+ * palemoon/app/Makefile.in copies this to Ageku.rdef, compiles it with rc
  * and attaches it with xres right after linking (after any strip, which drops
  * resources).
  */
@@ -15,16 +15,17 @@ resource(1, "UXP:APP_NAME") "Ageku";
  * own signature, which B_EXCLUSIVE_LAUNCH lets run alongside. */
 resource app_flags B_EXCLUSIVE_LAUNCH;
 
+/* Ageku's own version (= VERSION in haiku-app.env and the package version). */
 resource app_version {
-	major  = @APP_MAJOR@,
-	middle = @APP_MIDDLE@,
-	minor  = @APP_MINOR@,
+	major  = 0,
+	middle = 1,
+	minor  = 0,
 
 	variety = B_APPV_FINAL,
 	internal = 0,
 
-	short_info = "Ageku @APP_VERSION@",
-	long_info = "Ageku @APP_VERSION@, a web browser for Haiku and Renku OS."
+	short_info = "Ageku 0.1.0",
+	long_info = "Ageku 0.1.0, a web browser for Haiku and Renku OS."
 };
 
 resource file_types message {

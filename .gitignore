@@ -76,4 +76,4 @@ mail/
 suite/
 iceweasel/
 calendar/
-projects/*
+projects/*/dist/

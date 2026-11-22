@@ -1,0 +1,30 @@
+name			ageku
+version			@VERSION@-@REVISION@
+architecture		@ARCH@
+summary			"Ageku, a web browser for Haiku and Renku OS"
+description		"@DESCRIPTION@"
+packager		"The Ageku contributors"
+vendor			"The Ageku contributors"
+copyrights		{
+	"The Ageku contributors"
+	"Mozilla Foundation and contributors"
+}
+licenses		{
+	"MPL v2.0"
+}
+urls			{
+	"https://github.com/idumych/ageku"
+}
+
+provides		{
+	ageku = @VERSION@
+	app:Ageku = @VERSION@
+	cmd:ageku = @VERSION@
+}
+
+# Optional, dlopen()ed at run time (.hpkg has no "recommends"; noted in the
+# description): mesa (WebGL), ffmpeg6/ffmpeg8 (H.264/AAC), myspell (spelling).
+requires		{
+	haiku >= r1~beta6
+@REQUIRES@
+}
