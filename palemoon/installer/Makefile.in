@@ -41,7 +41,8 @@ DEFINES += -DMOZ_GTK3=1
 endif
 endif
 
-ifdef MOZ_SYSTEM_NSPR
+# --with-system-nspr leaves MOZ_BUILD_NSPR empty (in-tree NSPR sets it).
+ifneq (,$(MOZ_SYSTEM_NSPR)$(if $(MOZ_BUILD_NSPR),,1))
 DEFINES += -DMOZ_SYSTEM_NSPR=1
 endif
 

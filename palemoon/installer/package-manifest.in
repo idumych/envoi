@@ -239,8 +239,8 @@
 
 ; shell icons
 #ifdef XP_UNIX
-#ifndef XP_MACOSX
-; shell icons
+#if !defined(XP_MACOSX) && !defined(XP_HAIKU)
+; shell icons (Haiku's icon is a resource in the executable)
 @RESPATH@/browser/icons/*.png
 #ifdef MOZ_UPDATER
 ; updater icon

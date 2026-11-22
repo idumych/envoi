@@ -1,0 +1,40 @@
+/*
+ * Haiku application resources for Ageku.
+ * palemoon/app/Makefile.in fills in the @...@ fields, compiles this with rc
+ * and attaches it with xres right after linking (after any strip, which drops
+ * resources).
+ */
+
+resource app_signature "application/x-vnd.Ageku";
+
+/* The name the engine shows in notifications and print jobs. */
+resource(1, "UXP:APP_NAME") "Ageku";
+
+/* One instance per signature (no X11 remoting on Haiku): a second launch hands
+ * its arguments to the running instance. -P/-profile and -no-remote get their
+ * own signature, which B_EXCLUSIVE_LAUNCH lets run alongside. */
+resource app_flags B_EXCLUSIVE_LAUNCH;
+
+resource app_version {
+	major  = @APP_MAJOR@,
+	middle = @APP_MIDDLE@,
+	minor  = @APP_MINOR@,
+
+	variety = B_APPV_FINAL,
+	internal = 0,
+
+	short_info = "Ageku @APP_VERSION@",
+	long_info = "Ageku @APP_VERSION@, a web browser for Haiku and Renku OS."
+};
+
+resource file_types message {
+	"types" = "text/html",
+	"types" = "application/xhtml+xml",
+	"types" = "text/xml",
+	"types" = "image/svg+xml",
+	"types" = "application/x-vnd.Be.URL.http",
+	"types" = "application/x-vnd.Be.URL.https",
+	"types" = "application/x-vnd.Be.URL.ftp"
+};
+
+#include "icon.rdef"
