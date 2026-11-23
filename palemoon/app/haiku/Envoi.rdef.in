@@ -18,14 +18,14 @@ resource app_flags B_EXCLUSIVE_LAUNCH;
 /* Envoi's own version (= VERSION in haiku-app.env and the package version). */
 resource app_version {
 	major  = 0,
-	middle = 1,
+	middle = 2,
 	minor  = 0,
 
 	variety = B_APPV_FINAL,
 	internal = 0,
 
-	short_info = "Envoi 0.1.0",
-	long_info = "Envoi 0.1.0, a web browser for Haiku and Renku OS."
+	short_info = "Envoi 0.2.0",
+	long_info = "Envoi 0.2.0, a web browser for Haiku and Renku OS."
 };
 
 resource file_types message {

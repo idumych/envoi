@@ -58,8 +58,7 @@ ac_add_options --disable-jemalloc
 ac_add_options --disable-crashreporter
 ac_add_options --disable-updater
 ac_add_options --disable-maintenance-service
-ac_add_options --disable-webrtc
-ac_add_options --disable-npapi
+ac_add_options --enable-webrtc
 ac_add_options --disable-dbus
 ac_add_options --disable-necko-wifi
 ac_add_options --disable-pulseaudio

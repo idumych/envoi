@@ -9,7 +9,7 @@ Platform (UXP) with the Haiku engine work from [idumych/uxp-haiku](https://githu
 Envoi is not endorsed by, or affiliated with, any other browser project. Please report problems
 here, not to any upstream project.
 
-**Status:** first preview (0.1.0). Packages for Haiku R1/beta6 x86_64 (which also installs on
+**Status:** preview (0.2.0, adds WebRTC on x86_64). Packages for Haiku R1/beta6 x86_64 (which also installs on
 Renku OS x86_64) and for Renku OS arm64. Expect rough edges: the release notes say what was
 tested and what wasn't. See [PLAN-HAIKU.md](PLAN-HAIKU.md) for what's next.
 
@@ -17,8 +17,8 @@ tested and what wasn't. See [PLAN-HAIKU.md](PLAN-HAIKU.md) for what's next.
 
 Download the package for your system from [Releases](https://github.com/idumych/envoi/releases), then:
 
-    pkgman install ./envoi-0.1.0-1-x86_64.hpkg     # Haiku R1/beta6, Renku OS x86_64
-    pkgman install ./envoi-0.1.0-1-arm64.hpkg      # Renku OS arm64
+    pkgman install ./envoi-0.2.0-1-x86_64.hpkg     # Haiku R1/beta6, Renku OS x86_64
+    pkgman install ./envoi-0.2.0-1-arm64.hpkg      # Renku OS arm64
 
 Envoi appears in the Deskbar's Applications menu; the command is `envoi`.
 
