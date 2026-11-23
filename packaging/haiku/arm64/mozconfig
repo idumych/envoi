@@ -33,39 +33,8 @@ export AR=aarch64-unknown-haiku-ar RANLIB=aarch64-unknown-haiku-ranlib
 export STRIP=aarch64-unknown-haiku-strip OBJCOPY=aarch64-unknown-haiku-objcopy
 
 ac_add_options --target=aarch64-unknown-haiku
-ac_add_options --enable-application=palemoon
-ac_add_options --enable-default-toolkit=cairo-haiku
-ac_add_options --enable-optimize="-O2 -w"
-ac_add_options --disable-debug
-ac_add_options --disable-official-branding
-ac_add_options --enable-update-channel=release
-ac_add_options --enable-devtools
-ac_add_options --with-pthreads
 # The host's gold linker can't link aarch64; use the cross binutils' ld.
 ac_add_options --disable-gold
+# NSPR, NSS and libevent come from the sysroot and ship in the package.
 
-# System libraries (from the sysroot; NSPR, NSS and libevent ship in the package)
-ac_add_options --with-system-nspr
-ac_add_options --with-system-nss
-ac_add_options --with-system-zlib
-ac_add_options --with-system-bz2
-ac_add_options --with-system-ffi
-ac_add_options --with-system-jpeg
-ac_add_options --disable-libjpeg-turbo
-
-# As on x86_64
-ac_add_options --disable-jemalloc
-ac_add_options --disable-crashreporter
-ac_add_options --disable-updater
-ac_add_options --disable-maintenance-service
-ac_add_options --enable-webrtc
-ac_add_options --disable-dbus
-ac_add_options --disable-necko-wifi
-ac_add_options --disable-pulseaudio
-ac_add_options --disable-gamepad
-ac_add_options --disable-elf-hack
-ac_add_options --enable-strip
-ac_add_options --disable-parental-controls
-ac_add_options --disable-synth-speechd
-ac_add_options --disable-gpsd
-ac_add_options --disable-accessibility
+. "$topsrcdir/packaging/haiku/mozconfig-common"

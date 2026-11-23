@@ -19,10 +19,11 @@ W=${1:-$HOME/.cache/envoi-arm64}
 HERE=$(cd "$(dirname "$0")" && pwd)
 : "${HAIKU_ARM64_SYSROOT:?source the Haiku arm64 cross tools env.sh first}"
 REPO=https://renkuos.freemyip.com/repo/renkuosports/arm64
-HP=https://raw.githubusercontent.com/haikuports/haikuports/master
+# HaikuPorts pinned to a commit: its patchsets change or vanish on master.
+HP=https://raw.githubusercontent.com/haikuports/haikuports/dbe1849a3e35ed81e32614db10b4bc12985055c9
 SR=$W/sysroot
 D=$W/deps
-mkdir -p "$W/pkgs" "$W/src" "$W/recipes"
+mkdir -p "$W/pkgs" "$W/src"
 
 # 1. Sysroot: a private copy of the cross tools' sysroot plus Renku's arm64 ports.
 rm -rf "$SR" "$D"
@@ -46,7 +47,7 @@ XL=$(echo "$HAIKU_CROSS_LDFLAGS" | sed "s#$HAIKU_ARM64_SYSROOT#$SR#g")
 CCX="aarch64-unknown-haiku-gcc --sysroot=$SR -B$SR/develop/lib"
 G="git -c user.name=build -c user.email=build@localhost"
 
-fetch() {	# fetch URL SHA256 -> unpacked source dir in $W/src
+fetch() {	# fetch URL SHA256 -> checked download in $W/src
 	f=$W/src/$(basename "$1")
 	[ -f "$f" ] || curl -fsSL -m 900 -o "$f" "$1"
 	echo "$2  $f" | sha256sum -c --quiet
@@ -58,11 +59,12 @@ patched() {	# patched DIR PATCHSET... : apply patches as commits in a fresh git 
 }
 
 # 2. NSPR 4.39
-curl -fsS -m 60 -o "$W/recipes/nspr.patchset" "$HP/dev-libs/nspr/patches/nspr-4.39.patchset"
+fetch "$HP/dev-libs/nspr/patches/nspr-4.39.patchset" \
+	86869e0c60a90f6d0ce25d92c5cd2a794767ae971745ec72c4b7369512444fd8
 fetch https://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v4.39/src/nspr-4.39.tar.gz \
 	bbd02ee87a55676063a63e5bc819e0227de2666b47307b2a0134414cdf42368e
 rm -rf "$W/src/nspr-4.39"; tar -xzf "$W/src/nspr-4.39.tar.gz" -C "$W/src"
-patched "$W/src/nspr-4.39/nspr" "$W/recipes/nspr.patchset"
+patched "$W/src/nspr-4.39/nspr" "$W/src/nspr-4.39.patchset"
 (cd "$W/src/nspr-4.39/nspr" && git apply "$HERE/patches/nspr-4.39-haiku-arm64.patch" \
 	&& autoreconf -fi >/dev/null 2>&1 \
 	&& CC=aarch64-unknown-haiku-gcc CXX=aarch64-unknown-haiku-g++ \
@@ -75,11 +77,12 @@ patched "$W/src/nspr-4.39/nspr" "$W/recipes/nspr.patchset"
 	&& make -j"$(nproc)" >> "$W/nspr.log" 2>&1 && make DESTDIR="$D" install >> "$W/nspr.log" 2>&1)
 
 # 3. libevent 2.1.13
-curl -fsS -m 60 -o "$W/recipes/libevent.patchset" "$HP/dev-libs/libevent/patches/libevent-2.1.13.patchset"
+fetch "$HP/dev-libs/libevent/patches/libevent-2.1.13.patchset" \
+	ac09c687c1ab76d251e649dbddeda7f5e4e77dcfd570c4d01294cf4a884192c5
 fetch https://github.com/libevent/libevent/releases/download/release-2.1.13-stable/libevent-2.1.13-stable.tar.gz \
 	f7e9383b8c0baa81b687e5b5eecc01beefaf1b19b64151d95ed61647fe7a315c
 rm -rf "$W/src/libevent-2.1.13-stable"; tar -xzf "$W/src/libevent-2.1.13-stable.tar.gz" -C "$W/src"
-patched "$W/src/libevent-2.1.13-stable" "$W/recipes/libevent.patchset"
+patched "$W/src/libevent-2.1.13-stable" "$W/src/libevent-2.1.13.patchset"
 (cd "$W/src/libevent-2.1.13-stable" && autoreconf -fi >/dev/null 2>&1 \
 	&& CC="$CCX" CFLAGS="$XC -O2" CPPFLAGS="-D_BSD_SOURCE -DEV_ENABLE=0" LDFLAGS="$XL -lbsd -lnetwork" \
 		./configure --host=aarch64-unknown-haiku --build=x86_64-pc-linux-gnu --prefix=/boot/system \
@@ -88,11 +91,12 @@ patched "$W/src/libevent-2.1.13-stable" "$W/recipes/libevent.patchset"
 	&& make -j"$(nproc)" >> "$W/libevent.log" 2>&1 && make DESTDIR="$D" install >> "$W/libevent.log" 2>&1)
 
 # 4. NSS 3.133 (coreconf; not parallel-safe)
-curl -fsS -m 60 -o "$W/recipes/nss.patchset" "$HP/dev-libs/nss/patches/nss-3.133.patchset"
+fetch "$HP/dev-libs/nss/patches/nss-3.133.patchset" \
+	ac0c086d928597420d603c00e71a8cf51e496a354f603d948440ea05c9ac7b51
 fetch https://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_3_133_RTM/src/nss-3.133.tar.gz \
 	4d752526b9846a1d962588cfbd09b7cc2a4f6a4effbd9157d58a30e8a2573065
 rm -rf "$W/src/nss-3.133"; tar -xzf "$W/src/nss-3.133.tar.gz" -C "$W/src"
-patched "$W/src/nss-3.133/nss" "$W/recipes/nss.patchset"
+patched "$W/src/nss-3.133/nss" "$W/src/nss-3.133.patchset"
 (cd "$W/src/nss-3.133/nss" && git apply "$HERE/patches/nss-3.133-haiku-arm64.patch")
 T="OS_ARCH=Haiku OS_TARGET=Haiku OS_TEST=aarch64 OS_RELEASE=1"
 (cd "$W/src/nss-3.133/nss" \

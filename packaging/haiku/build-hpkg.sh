@@ -6,7 +6,7 @@
 #
 # ARCH is x86_64 (default; run on Haiku) or arm64 (Renku OS; run on the Linux
 # build host with the cross tools' package and addattr on PATH, see
-# packaging/haiku/build-arm64.md). Installs to apps/Envoi with a Deskbar link
+# packaging/haiku/arm64/README.md). Installs to apps/Envoi with a Deskbar link
 # and bin/envoi. Version and requirements come from haiku-app.env.
 set -e
 
@@ -54,7 +54,7 @@ fi
 
 # Description: one paragraph; quotes and sed specials escaped.
 description=$(tr '\n' ' ' < "$here/description.txt" | sed -e 's/ *$//' \
-	-e 's/["\\]/\\&/g' -e 's/[&|]/\\&/g')
+	-e 's/["\\]/\\\\\\&/g' -e 's/[&|]/\\&/g')
 req=$(for r in $requires; do printf '\t%s\\n' "$r"; done)
 sed -e "s/@VERSION@/$VERSION/g" -e "s/@REVISION@/$REVISION/g" -e "s/@ARCH@/$arch/" \
 	-e "s|@DESCRIPTION@|$description|" -e "s|^@REQUIRES@\$|$req|" \

@@ -19,7 +19,7 @@ image in QEMU.
     MOZCONFIG=$PWD/packaging/haiku/arm64/mozconfig ./mach build
     make -C ~/.cache/envoi-arm64/obj package MOZ_DISABLE_PRECOMPILED_STARTUPCACHE=1
     ENVOI_ARM64_BUNDLE=~/.cache/envoi-arm64/bundle \
-        sh packaging/haiku/build-hpkg.sh ~/.cache/envoi-arm64/obj dist/0.1.0 arm64
+        sh packaging/haiku/build-hpkg.sh ~/.cache/envoi-arm64/obj dist arm64
 
 `build-deps.sh` builds the sysroot: Renku's arm64 ports (libffi, fontconfig, freetype, zlib,
 libiconv, libjpeg_turbo and what they need), plus NSPR 4.39, NSS 3.133 and libevent 2.1.13,

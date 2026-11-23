@@ -23,6 +23,25 @@ pref("nglayout.initialpaint.delay", 300);
 pref("image.mem.max_ms_before_yield", 50);
 pref("image.mem.decode_bytes_at_a_time", 65536);
 pref("geo.wifi.uri", "");
+// No add-on site, blocklist or search-engine catalog of our own yet: don't
+// reach the upstream project's (palemoon.js points there).
+pref("extensions.blocklist.enabled", false);
+pref("extensions.blocklist.url", "");
+pref("extensions.blocklist.detailsURL", "");
+pref("extensions.blocklist.itemURL", "");
+pref("extensions.update.url", "");
+pref("extensions.getAddons.showPane", false);
+pref("extensions.getAddons.get.url", "");
+pref("extensions.getAddons.getWithPerformance.url", "");
+pref("extensions.getAddons.search.browseURL", "");
+pref("extensions.getAddons.search.url", "");
+pref("extensions.getAddons.recommended.url", "");
+pref("extensions.getAddons.recommended.browseURL", "");
+pref("extensions.getAddons.browseAddons", "");
+pref("extensions.webservice.discoverURL", "");
+pref("browser.dictionaries.download.url", "");
+pref("browser.getdevtools.url", "");
+pref("browser.search.searchEnginesURL", "");
 // No sync server of our own yet.
 pref("services.sync.serverURL", "");
 pref("services.sync.jpake.serverURL", "");

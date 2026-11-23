@@ -10,6 +10,7 @@ Serves:
   /webrtc      a WebRTC loopback test (results also logged as "webrtc <line>")
 Every request is logged to LOGFILE.
 """
+import html
 import http.server
 import io
 import sys
@@ -140,7 +141,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         elif url.path == "/submit":
             q = urllib.parse.parse_qs(url.query).get("q", [""])[0]
             log("q=" + urllib.parse.quote_plus(q))
-            self.send(("<title>Got it</title><p>Got: %s" % q).encode(),
+            self.send(("<title>Got it</title><p>Got: %s" % html.escape(q)).encode(),
                       "text/html; charset=utf-8")
         elif url.path == "/sample.zip":
             self.send(sample_zip(), "application/zip")

@@ -50,8 +50,15 @@ EXTRA_DEPS += $(HAIKU_RSRC)
 GARBAGE += $(HAIKU_RSRC) Envoi.rdef
 MOZ_POST_PROGRAM_COMMAND = $(srcdir)/haiku/attach-resources.sh $(HAIKU_RSRC)
 
-Envoi.rdef: $(srcdir)/haiku/Envoi.rdef.in $(DEPTH)/config/autoconf.mk
-	cp $< $@
+# The version comes from haiku-app.env (VERSION), as the package's does.
+ENVOI_VERSION := $(shell . $(topsrcdir)/haiku-app.env && echo $$VERSION)
+ENVOI_VERSION_PARTS := $(subst ., ,$(ENVOI_VERSION))
+
+Envoi.rdef: $(srcdir)/haiku/Envoi.rdef.in $(topsrcdir)/haiku-app.env
+	sed -e 's/@VERSION@/$(ENVOI_VERSION)/g' \
+	    -e 's/@MAJOR@/$(word 1,$(ENVOI_VERSION_PARTS))/' \
+	    -e 's/@MIDDLE@/$(word 2,$(ENVOI_VERSION_PARTS))/' \
+	    -e 's/@MINOR@/$(word 3,$(ENVOI_VERSION_PARTS))/' $< > $@
 
 $(HAIKU_RSRC): Envoi.rdef $(srcdir)/haiku/icon.rdef
 	rc -I $(srcdir)/haiku -o $@ Envoi.rdef

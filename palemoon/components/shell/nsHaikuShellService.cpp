@@ -17,7 +17,7 @@
 #include <storage/MimeType.h>
 #pragma GCC visibility pop
 
-// Must match the BApplication signature in widget/haiku/HaikuApplication.cpp.
+// Must match app_signature in palemoon/app/haiku/Envoi.rdef.in.
 #define APP_SIGNATURE "application/x-vnd.Envoi"
 
 static const char* const kHttpTypes[] = {

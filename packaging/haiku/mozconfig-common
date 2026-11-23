@@ -1,0 +1,38 @@
+# Build options shared by mozconfig-haiku (x86_64) and packaging/haiku/arm64/mozconfig.
+
+ac_add_options --enable-application=palemoon
+ac_add_options --enable-default-toolkit=cairo-haiku
+ac_add_options --enable-optimize="-O2 -w"
+ac_add_options --disable-debug
+ac_add_options --disable-official-branding
+ac_add_options --enable-update-channel=release
+ac_add_options --enable-devtools
+ac_add_options --with-pthreads
+
+# System libraries
+ac_add_options --with-system-nspr
+ac_add_options --with-system-nss
+ac_add_options --with-system-zlib
+ac_add_options --with-system-bz2
+ac_add_options --with-system-ffi
+ac_add_options --with-system-jpeg
+ac_add_options --disable-libjpeg-turbo
+
+# Things Haiku can't have yet
+ac_add_options --disable-jemalloc
+ac_add_options --disable-crashreporter
+ac_add_options --disable-updater
+ac_add_options --disable-maintenance-service
+# WebRTC: microphone via cubeb, camera via the Media Kit (platform: haiku-envoi).
+# It needs NPAPI built in (Gecko media plugins use the plugin process code).
+ac_add_options --enable-webrtc
+ac_add_options --disable-dbus
+ac_add_options --disable-necko-wifi
+ac_add_options --disable-pulseaudio
+ac_add_options --disable-gamepad
+ac_add_options --disable-elf-hack
+ac_add_options --enable-strip
+ac_add_options --disable-parental-controls
+ac_add_options --disable-synth-speechd
+ac_add_options --disable-gpsd
+ac_add_options --disable-accessibility
