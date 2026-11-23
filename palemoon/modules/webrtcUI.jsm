@@ -23,12 +23,14 @@ XPCOMUtils.defineLazyServiceGetter(this, "MediaManagerService",
 this.webrtcUI = {
   init: function () {
     Services.obs.addObserver(handleRequest, "getUserMedia:request", false);
+    Services.obs.addObserver(handlePCRequest, "PeerConnection:request", false);
     Services.obs.addObserver(updateIndicators, "recording-device-events", false);
     Services.obs.addObserver(removeBrowserSpecificIndicator, "recording-window-ended", false);
   },
 
   uninit: function () {
     Services.obs.removeObserver(handleRequest, "getUserMedia:request");
+    Services.obs.removeObserver(handlePCRequest, "PeerConnection:request");
     Services.obs.removeObserver(updateIndicators, "recording-device-events");
     Services.obs.removeObserver(removeBrowserSpecificIndicator, "recording-window-ended");
   },
@@ -36,11 +38,11 @@ this.webrtcUI = {
   showGlobalIndicator: false,
 
   get activeStreams() {
-    let contentWindowSupportsArray = MediaManagerService.activeMediaCaptureWindows;
-    let count = contentWindowSupportsArray.Count();
+    let contentWindowArray = MediaManagerService.activeMediaCaptureWindows;
+    let count = contentWindowArray.length;
     let activeStreams = [];
     for (let i = 0; i < count; i++) {
-      let contentWindow = contentWindowSupportsArray.GetElementAt(i);
+      let contentWindow = contentWindowArray.queryElementAt(i, Ci.nsISupports);
       let browser = getBrowserForWindow(contentWindow);
       let browserWindow = browser.ownerDocument.defaultView;
       let tab = browserWindow.gBrowser &&
@@ -67,20 +69,30 @@ function getBrowserForWindow(aContentWindow) {
 }
 
 function handleRequest(aSubject, aTopic, aData) {
-  let {windowID: windowID, callID: callID} = JSON.parse(aData);
+  // aSubject is the platform's GetUserMediaRequest.
+  let {windowID, innerWindowID, callID} = aSubject;
+  let constraints = aSubject.getConstraints();
+  let contentWindow = Services.wm.getOuterWindowWithId(windowID);
 
-  let params = aSubject.QueryInterface(Ci.nsIMediaStreamOptions);
-
-  Services.wm.getMostRecentWindow(null).navigator.mozGetUserMediaDevices(
+  contentWindow.navigator.mozGetUserMediaDevices(
+    constraints,
     function (devices) {
-      prompt(windowID, callID, params.audio, params.video || params.picture, devices);
+      prompt(windowID, callID, !!constraints.audio, !!constraints.video, devices || []);
     },
     function (error) {
       // bug 827146 -- In the future, the UI should catch NO_DEVICES_FOUND
       // and allow the user to plug in a device, instead of immediately failing.
       denyRequest(callID, error);
-    }
+    },
+    innerWindowID,
+    callID
   );
+}
+
+// A page creating a peer connection asks first; always allow (as other UXP
+// browsers do: the hook is for add-ons that want to block WebRTC).
+function handlePCRequest(aSubject, aTopic, aData) {
+  Services.obs.notifyObservers(null, "PeerConnection:response:allow", aSubject.callID);
 }
 
 function denyRequest(aCallID, aError) {
@@ -117,7 +129,7 @@ function prompt(aWindowID, aCallID, aAudioRequested, aVideoRequested, aDevices) 
   else if (videoDevices.length)
     requestType = "Camera";
   else {
-    denyRequest(aCallID, "NO_DEVICES_FOUND");
+    denyRequest(aCallID, "NotFoundError");
     return;
   }
 
@@ -191,20 +203,27 @@ function prompt(aWindowID, aCallID, aAudioRequested, aVideoRequested, aDevices) 
       }
 
       this.mainAction.callback = function() {
-        let allowedDevices = Cc["@mozilla.org/supports-array;1"]
-                               .createInstance(Ci.nsISupportsArray);
+        let allowedDevices = Cc["@mozilla.org/array;1"]
+                               .createInstance(Ci.nsIMutableArray);
         if (videoDevices.length) {
           let videoDeviceIndex = chromeDoc.getElementById("webRTC-selectCamera-menulist").value;
-          if (videoDeviceIndex != "-1")
-            allowedDevices.AppendElement(videoDevices[videoDeviceIndex]);
+          if (videoDeviceIndex != "-1") {
+            allowedDevices.appendElement(videoDevices[videoDeviceIndex], false);
+            // The camera service checks this one-shot permission before it
+            // opens the device.
+            Services.perms.addFromPrincipal(contentWindow.document.nodePrincipal,
+                                            "MediaManagerVideo",
+                                            Services.perms.ALLOW_ACTION,
+                                            Services.perms.EXPIRE_SESSION);
+          }
         }
         if (audioDevices.length) {
           let audioDeviceIndex = chromeDoc.getElementById("webRTC-selectMicrophone-menulist").value;
           if (audioDeviceIndex != "-1")
-            allowedDevices.AppendElement(audioDevices[audioDeviceIndex]);
+            allowedDevices.appendElement(audioDevices[audioDeviceIndex], false);
         }
 
-        if (allowedDevices.Count() == 0) {
+        if (allowedDevices.length == 0) {
           denyRequest(aCallID);
           return;
         }
@@ -222,7 +241,7 @@ function prompt(aWindowID, aCallID, aAudioRequested, aVideoRequested, aDevices) 
 
 function updateIndicators() {
   webrtcUI.showGlobalIndicator =
-    MediaManagerService.activeMediaCaptureWindows.Count() > 0;
+    MediaManagerService.activeMediaCaptureWindows.length > 0;
 
   let e = Services.wm.getEnumerator("navigator:browser");
   while (e.hasMoreElements())
